@@ -390,18 +390,27 @@ public class DragSortController extends SimpleFloatViewManager implements View.O
                 if (mDragInitMode == ON_DRAG && Math.abs(y2 - y1) > mTouchSlop && mSortEnabled) {
                     startDrag(mHitPos, deltaX, deltaY);
                 }
-                else if (mDragInitMode != ON_DOWN && Math.abs(x2 - x1) > mTouchSlop && mRemoveEnabled)
+                else if (mDragInitMode != ON_DOWN && Math.abs(x2 - x1) > mTouchSlop
+                        && Math.abs(x2 - x1) > Math.abs(y2 - y1) * 2 // add by royer
+                        && mRemoveEnabled)
                 {
                     mIsRemoving = true;
                     startDrag(mFlingHitPos, deltaX, deltaY);
                 }
             } else if (mFlingHitPos != MISS) {
-                if (Math.abs(x2 - x1) > mTouchSlop && mRemoveEnabled) {
-                    mIsRemoving = true;
+                // Modify by royer
+//                if (Math.abs(x2 - x1) > mTouchSlop && mRemoveEnabled) {
+//                    mIsRemoving = true;
+//                    startDrag(mFlingHitPos, deltaX, deltaY);
+//                } else if (Math.abs(y2 - y1) > mTouchSlop) {
+//                    mCanDrag = false; // if started to scroll the list then
+//                                      // don't allow sorting nor fling-removing
+//                }
+                if (Math.abs(y2 - y1) > mTouchSlop) {
+                    mCanDrag = false ;
+                } else if (Math.abs(x2 - x1) > mTouchSlop && mRemoveEnabled) {
+                    mIsRemoving = true ;
                     startDrag(mFlingHitPos, deltaX, deltaY);
-                } else if (Math.abs(y2 - y1) > mTouchSlop) {
-                    mCanDrag = false; // if started to scroll the list then
-                                      // don't allow sorting nor fling-removing
                 }
             }
         }

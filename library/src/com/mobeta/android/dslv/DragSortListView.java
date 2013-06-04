@@ -718,6 +718,9 @@ public class DragSortListView extends ListView {
                 View oldChild = v.getChildAt(0);
 
                 child = mAdapter.getView(position, oldChild, DragSortListView.this);
+                child.setLayoutParams(new LayoutParams(
+                        ViewGroup.LayoutParams.FILL_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
                 if (child != oldChild) {
                     // shouldn't get here if user is reusing convertViews
                     // properly
@@ -728,6 +731,9 @@ public class DragSortListView extends ListView {
                 }
             } else {
                 child = mAdapter.getView(position, null, DragSortListView.this);
+                child.setLayoutParams(new LayoutParams(
+                        ViewGroup.LayoutParams.FILL_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
                 if (child instanceof Checkable) {
                     v = new DragSortItemViewCheckable(getContext());
                 } else {
